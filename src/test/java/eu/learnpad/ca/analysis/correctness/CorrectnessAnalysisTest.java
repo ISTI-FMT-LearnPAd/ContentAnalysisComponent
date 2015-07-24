@@ -1,4 +1,4 @@
-package eu.learnpad.ca.correctness;
+package eu.learnpad.ca.analysis.correctness;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +15,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.languagetool.language.BritishEnglish;
 
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
