@@ -1,4 +1,4 @@
-package eu.learnpad.ca.correctness;
+package eu.learnpad.ca.analysis.correctness;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -10,6 +10,7 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.rules.RuleMatch;
 
+import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -21,14 +22,18 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 
-public class CorrectnessAnalysis {
+public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 
 
 	private Language language;
-	private Integer numDefectiveSentences = 0;
+	private int numDefectiveSentences = 0;
+	private CollaborativeContentAnalysis collaborativeContentAnalysis;
+	private StaticContentAnalysis staticContentAnalysis;
+	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis;
+	private AnnotatedStaticContentAnalysis annotatedStaticContentAnalysis;
 
-	public CorrectnessAnalysis( Language lang){
+	public CorrectnessAnalysis(Language lang){
 
 		this.language=lang;
 
@@ -43,42 +48,53 @@ public class CorrectnessAnalysis {
 
 		List<RuleMatch> matches;
 		try {
-
-			matches = langTool.check(content);
-
-			List<String> listsentence = langTool.sentenceTokenize(content);
-			List<Integer> possepa = posSentenceSeparator(listsentence);
-
-
-			System.out.println(content);
-			AnnotatedCollaborativeContentAnalysis acca = new AnnotatedCollaborativeContentAnalysis();
+			annotatedCollaborativeContentAnalysis = new AnnotatedCollaborativeContentAnalysis();
 			CollaborativeContent sc = new CollaborativeContent();
-			acca.setCollaborativeContent(sc);
+			annotatedCollaborativeContentAnalysis.setCollaborativeContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
 
-			List<Annotation> annotations = calculateAnnotations(content, matches, c, possepa);
-			acca.setAnnotations(annotations);
+			
+			List<String> listsentence = langTool.sentenceTokenize(content);
+			int id=0;
+			for (String sentence : listsentence) {
+
+				matches = langTool.check(sentence);
+				//List<Annotation> annotations = checkdefect(sentence,c, id);
+				
+				List<Annotation> annotations = calculateAnnotations(sentence, matches, c, id);
+				
+				
+				if(annotations.size()>0){
+					numDefectiveSentences++;
+				}
+				annotatedCollaborativeContentAnalysis.setAnnotations(annotations);
+				id++;
+			}
+			
+			
+			
+			
 
 
-			acca.setId(1234);
+			
 
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			acca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			acca.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-			acca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			acca.setType("Correctness");
+			annotatedCollaborativeContentAnalysis.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedCollaborativeContentAnalysis.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			annotatedCollaborativeContentAnalysis.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedCollaborativeContentAnalysis.setType("Correctness");
 
 
 
 
 
+			
 
-
-			return acca;
+			return annotatedCollaborativeContentAnalysis;
 
 
 
@@ -104,35 +120,47 @@ public class CorrectnessAnalysis {
 			matches = langTool.check(content);
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
-			List<Integer> possepa = posSentenceSeparator(listsentence);
+		
 
-			System.out.println(content);
-			AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
+			//System.out.println(content);
+			annotatedStaticContentAnalysis = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
-			asca.setStaticContent(sc);
+			annotatedStaticContentAnalysis.setStaticContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
+			int id=0;
+			for (String sentence : listsentence) {
+
+				matches = langTool.check(sentence);
+		
+				
+				List<Annotation> annotations = calculateAnnotations( sentence, matches, c, id);
+				annotatedStaticContentAnalysis.setAnnotations(annotations);
+				
+				if(annotations.size()>0){
+					numDefectiveSentences++;
+				}
+				
+				id++;
+			}
+
+		
 
 
-
-			List<Annotation> annotations = calculateAnnotations(content, matches, c,possepa);
-			asca.setAnnotations(annotations);
-
-
-			asca.setId(1234);
+			
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			asca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			asca.setOverallQualityMeasure(qualitymmeasure+"%");
-			asca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			asca.setType("Correctness");
+			annotatedStaticContentAnalysis.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedStaticContentAnalysis.setOverallQualityMeasure(qualitymmeasure+"%");
+			annotatedStaticContentAnalysis.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedStaticContentAnalysis.setType("Correctness");
 
 
 
+			
 
-
-			return asca;
+			return annotatedStaticContentAnalysis;
 
 
 
@@ -147,29 +175,24 @@ public class CorrectnessAnalysis {
 
 
 
-	private List<Annotation> calculateAnnotations(String content,List<RuleMatch> matches, Content c, List<Integer> possepa){
+	private List<Annotation> calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, int id){
 		int precedentposition=0;
-		int id = 1;
+
 		List<Annotation> annotations=new ArrayList<Annotation>();
-		numDefectiveSentences = 0;
+
 		boolean flag = true;
-		int i=0;
+		int finalpos = 0;
 		for (RuleMatch match : matches) {
-			
-			if(match.getFromPos()>possepa.get(i)){
-				i++;
-				flag=true;
-			}else{
-				if(match.getFromPos()<possepa.get(i) & flag){
-					numDefectiveSentences++;
-					flag=false;				
-				}
+
+			if(precedentposition>match.getFromPos()){
+				precedentposition =  match.getFromPos();
 			}
-			String stringap = content.substring(precedentposition, match.getFromPos());
+			String stringap = sentence.substring(precedentposition, match.getFromPos());
 			c.setContent(stringap);
+			id++;
 			Node init= new Node(id);
 			c.setContent(init);
-			String stringa = content.substring(match.getFromPos(),match.getToPos());
+			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
 			precedentposition= match.getToPos();
 			c.setContent(stringa);
 			id++;
@@ -183,27 +206,28 @@ public class CorrectnessAnalysis {
 			a.setRecommendation(match.getMessage()+" Suggested correction: " +match.getSuggestedReplacements());
 			annotations.add(a);
 			id++;
+			finalpos = match.getToPos();
+		}
+		
+		if(annotations.size()==0){
+			c.setContent(sentence);
+		}else{
+			if(finalpos< sentence.length()){
+				c.setContent(sentence.substring(finalpos, sentence.length()));
+			}
 		}
 		return annotations;
 
 	}
 
-	private List<Integer> posSentenceSeparator(List<String> sentences){
-		List<Integer> listpos = new ArrayList<Integer>();
-		int offsett=0;
-		for(String sentence : sentences){
-			listpos.add(sentence.length()+offsett);
-			offsett=sentence.length();
-		}
-		return listpos;
-	}
-
+	
 	public int getNumSentenceDiffected() {
 		return numDefectiveSentences;
 	}
 
 	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qualityMeasure = 1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue());
+		double qm = (1-(numDefectiveSentences/numsentence.doubleValue()))*100;
+		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
 
@@ -239,5 +263,46 @@ public class CorrectnessAnalysis {
 		return recommendations;
 	}
 
+	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
+
+		this.language=lang;
+		collaborativeContentAnalysis =collaborativeContentInput;
+	}
+
+	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
+
+		this.language=lang;
+		staticContentAnalysis =staticContentInput;
+	}
+
+	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
+		return annotatedStaticContentAnalysis;
+	}
+
+	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis() {
+		return annotatedCollaborativeContentAnalysis;
+	}
+
+	public void run() {
+		if(collaborativeContentAnalysis!=null){
+			annotatedCollaborativeContentAnalysis = this.check(collaborativeContentAnalysis);	
+		}
+
+		if(staticContentAnalysis!=null){
+			annotatedStaticContentAnalysis = this.check(staticContentAnalysis);	
+		}
+
+	}
+	
+	public String getStatus(){
+		switch (this.getState()) {
+		case TERMINATED:
+			return "OK";
+
+		default:
+			return "IN PROGRESS";
+		}
+		
+	}
 
 }
