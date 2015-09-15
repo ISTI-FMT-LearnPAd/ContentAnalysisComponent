@@ -187,14 +187,14 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 		int id=0;
 		for (String sentence : listsentence) {
 
-			List<Annotation> annotations =new ArrayList<Annotation>();
+			/*List<Annotation> annotations =new ArrayList<Annotation>();
 			id = checkdefect(sentence,c, id, annotations);
 			if(annotations.size()>0){
 				numDefectiveSentences++;
 			}
-			annotatedCollaborativeContent.setAnnotations(annotations);
+			annotatedCollaborativeContent.setAnnotations(annotations);*/
 			id++;
-			/*LexicalizedParser lp = LexicalizedParser.loadModel(
+			LexicalizedParser lp = LexicalizedParser.loadModel(
 					"edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz",
 					"-maxLength", "80", "-retainTmpSubcategories");
 
@@ -206,7 +206,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 			System.out.println(lpq.getPCFGScore());
 			System.out.println();
 			int i = 1;
-			List<ScoredObject<Tree>> kBest = lpq.getKBestPCFGParses(2);*/
+			List<ScoredObject<Tree>> kBest = lpq.getKBestPCFGParses(2);
 
 			/*edu.stanford.nlp.pipeline.Annotation document = new edu.stanford.nlp.pipeline.Annotation(sentence);
 			Properties props = new Properties();
@@ -232,15 +232,15 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 
 				i++;
 			}*/
-			//System.out.println(graph);
+			System.out.println(kBest);
 			//System.out.println(coref);
 
-			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+			/*double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			annotatedCollaborativeContent.setType("non_ambiguity");
-			System.out.println(annotatedCollaborativeContent);
+			System.out.println(annotatedCollaborativeContent);*/
 
 		}
 	}
