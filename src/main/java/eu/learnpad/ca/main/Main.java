@@ -11,15 +11,12 @@ public class Main {
 	      
 	        Server jettyServer = new Server(8082);
 	       
-	                WebAppContext webapp1 = new WebAppContext();
+	                WebAppContext webapp = new WebAppContext();
 	        
-	                webapp1.setResourceBase("src/main/webapp");
+	                webapp.setContextPath("/");
+	                webapp.setWar("lp-content-analysis.war");
 	        
-	                webapp1.setContextPath("/webapp");
-	        
-	                webapp1.setDefaultsDescriptor("src/main/webapp/WEB-INF/web.xml");
-	        
-	                jettyServer.setHandler(webapp1);
+	                jettyServer.setHandler(webapp);
 
 	 
 	        try {
