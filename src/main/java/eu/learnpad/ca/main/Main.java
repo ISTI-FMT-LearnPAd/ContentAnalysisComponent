@@ -13,7 +13,7 @@ public class Main {
 	       
 	                WebAppContext webapp = new WebAppContext();
 	        
-	                webapp.setContextPath("/");
+	                webapp.setContextPath("/lp-content-analysis");
 	                webapp.setWar("lp-content-analysis.war");
 	        
 	                jettyServer.setHandler(webapp);
