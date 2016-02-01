@@ -5,7 +5,7 @@
 	<artifactId>lp-content-analysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>LearnPAd Content Analysis Component</name>
 	<url>http://learnpad.eu</url>
@@ -200,25 +200,13 @@
 
 			
 
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
-				<configuration>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-				<<<<<<< HEAD
-				<executions>
-					<execution>
-						<id>make-assembly</id> this is used for inheritance merges
-						<phase>package</phase> bind to the packaging phase
-						<goals>
-							<goal>war</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
+				
+				
+			</plugin> 
 			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <configuration> 
 				<archive> <manifest> <mainClass>eu.learnpad.ca.main.Main</mainClass> </manifest> 
 				</archive> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
