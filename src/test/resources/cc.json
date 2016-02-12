@@ -1,0 +1,17 @@
+{
+   "language": "english",
+   "CollaborativeContent": {
+      "id": "1213",
+      "Title": "Title of Documents",
+      "ContentPlain": "The document shall be sent to the proper\n   authorities as soon as possible",
+      "ContentHTML": "<p>\n   The <b>document <\/b> shall be sent to the proper\n   authorities as soon as possible\n   <\/p>"
+   },
+   "QualityCriteria": {
+      "simplicity": "true",
+      "non_ambiguity": "true",
+      "content_clarity": "true",
+      "presentation_clarity": "true",
+      "completeness": "true",
+      "correctness": "true"
+   }
+}
