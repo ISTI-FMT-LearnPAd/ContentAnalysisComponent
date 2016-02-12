@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import eu.learnpad.ca.rest.data.Annotation;
 
 /**
@@ -33,7 +35,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 })
 @XmlRootElement(name = "annotatedCollaborativeContentAnalysis")
 public class AnnotatedCollaborativeContentAnalysis {
-
+	@JsonIgnore
 	@XmlElement(name = "CollaborativeContent", required = true)
     protected CollaborativeContent collaborativeContent;
     @XmlElementWrapper(name = "Annotations", required = true)

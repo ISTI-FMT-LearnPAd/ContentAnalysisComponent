@@ -35,7 +35,7 @@ import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/ca/bridge/validatecollaborativecontent")
 //@Consumes("text/plain")//{"text/plain", MediaType.APPLICATION_XML})
-@Produces(MediaType.APPLICATION_XML)
+@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
