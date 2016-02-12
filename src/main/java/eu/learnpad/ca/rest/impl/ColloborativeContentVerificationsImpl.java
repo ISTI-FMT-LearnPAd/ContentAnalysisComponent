@@ -47,7 +47,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/")
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
 		try{
