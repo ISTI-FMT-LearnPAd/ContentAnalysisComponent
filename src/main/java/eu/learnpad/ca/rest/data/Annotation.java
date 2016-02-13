@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -15,8 +17,10 @@ public  class Annotation implements Comparable<Object>{
 	protected Integer id;
 	@XmlAttribute(name = "type", required = true)
 	protected String type;
+	@JsonIgnore
 	@XmlAttribute(name = "StartNode", required = true)
 	protected Integer startNode;
+	@JsonIgnore
 	@XmlAttribute(name = "EndNode", required = true)
 	protected Integer endNode;
 	@XmlAttribute(name = "recommendation", required = true)
