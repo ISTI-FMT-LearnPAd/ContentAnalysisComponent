@@ -24,7 +24,7 @@ public class GateServletContextListener implements ServletContextListener{
 			ServletContext ctx = sce.getServletContext();
 			if(!Gate.isInitialised()){
 				String servename = ctx.getServerInfo();
-				String path = "/WEB−INF";
+				String path = "/WEB-INF";
 				if(servename.startsWith("Grizzly")){
 					path = "/lib/gateHome";
 				}
