@@ -3,7 +3,6 @@ package eu.learnpad.ca.gate;
 import gate.Gate;
 
 import java.io.File;
-import java.net.URL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -24,8 +23,13 @@ public class GateServletContextListener implements ServletContextListener{
 		try { 
 			ServletContext ctx = sce.getServletContext();
 			if(!Gate.isInitialised()){
+				String servename = ctx.getServerInfo();
+				String path = "/WEB−INF";
+				if(servename.startsWith("Grizzly")){
+					path = "/lib/gateHome";
+				}
 				// use /path/to/your/webapp/WEB−INF as gate.home 
-				File gateHome = new File(ctx.getRealPath("/WEB-INF")); 
+				File gateHome = new File(ctx.getRealPath(path)); 
 
 				Gate.setGateHome(gateHome); 
 				// thus webapp/WEB−INF/plugins is the plugins directory, and 
@@ -38,9 +42,9 @@ public class GateServletContextListener implements ServletContextListener{
 				Gate.init(); 
 				// load plugins, for example... 
 				Gate.getCreoleRegister().registerDirectories( 
-						ctx.getResource("/WEB-INF/plugins/ANNIE")); 
+						ctx.getResource(path+"/plugins/ANNIE")); 
 				Gate.getCreoleRegister().registerDirectories( 
-						ctx.getResource("/WEB-INF/plugins/Tagger_NP_Chunking")); 
+						ctx.getResource(path+"/plugins/Tagger_NP_Chunking")); 
 			}
 
 		} 
