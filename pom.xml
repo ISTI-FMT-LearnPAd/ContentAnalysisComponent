@@ -5,7 +5,10 @@
 	<artifactId>lp-content-analysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<packaging>war</packaging>
+	<properties>
+		<p.type>jar</p.type>
+	</properties>
+	<packaging>${p.type}</packaging>
 
 	<name>LearnPAd Content Analysis Component</name>
 	<url>http://learnpad.eu</url>
