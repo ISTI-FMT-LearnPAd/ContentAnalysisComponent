@@ -25,10 +25,22 @@
 		     <param-name>jersey.config.server.provider.packages</param-name>
 		     <param-value>eu.learnpad.ca.main;eu.learnpad.ca.rest.impl</param-value>
 		</init-param>
+		 
+		<!-- <init-param>
+			<param-name>org.glassfish.jersey.container.ContainerResponseFilters</param-name>
+			<param-value>eu.learnpad.ca.rest.api.web.security.ResponseCorsFilter</param-value>
+		</init-param> -->
+ 		<init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>eu.learnpad.ca.rest.api.web.security.ResponseCorsFilter;org.glassfish.jersey.filter.LoggingFilter</param-value>
+        </init-param>
+
+
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
- 
+
+
 	<servlet-mapping>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<url-pattern>/*</url-pattern>

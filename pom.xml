@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<p.type>jar</p.type>
+		<p.type>war</p.type>
 	</properties>
 	<packaging>${p.type}</packaging>
 
@@ -81,6 +81,11 @@
 			<artifactId>language-all</artifactId>
 			<version>3.0</version>
 		</dependency>
+<dependency>
+	<groupId>org.glassfish.jersey.core</groupId>
+	<artifactId>jersey-common</artifactId>
+	<version>2.19</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
