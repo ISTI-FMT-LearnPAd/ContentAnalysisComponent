@@ -351,4 +351,10 @@ public class GateThread extends Thread implements StatusListener{
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);
 	}*/
+		
+		public void destroy() {
+			
+		CorpusController c = controller.get();
+		Factory.deleteResource(c);
+	}
 }
