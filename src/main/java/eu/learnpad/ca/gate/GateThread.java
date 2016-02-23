@@ -24,8 +24,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+
 
 
 
@@ -36,18 +35,18 @@ public class GateThread extends Thread implements StatusListener{
 	private QualityCriteria qualitycriteria;
 
 
-	/*private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
+	private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
 		protected CorpusController initialValue() { return initPersistentGateResources();
-		} };*/
+		} };
 
-	private BlockingQueue<CorpusController> pool;
+	/*private BlockingQueue<CorpusController> pool;*/
 
 
-	public void init() {
+	/*public void init() {
 		pool = new LinkedBlockingQueue<CorpusController>(); for(int i = 0; i < 10; i++) {
 			pool.add(initPersistentGateResources());
 		}
-	}
+	}*/
 
 
 	public void run() {
@@ -64,7 +63,7 @@ public class GateThread extends Thread implements StatusListener{
 	public GateThread(String content, QualityCriteria qc) {
 		this.qualitycriteria = qc;
 		CreateCorpusFromContent(content);
-		init();
+		//init();
 	}
 
 	public GateThread(File content) {
@@ -219,14 +218,14 @@ public class GateThread extends Thread implements StatusListener{
 
 
 	public void runProcessingResources() {
-		SerialAnalyserController pipeline = null;
+		//SerialAnalyserController pipeline = null;
 		try{
 
 
 
-			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
+			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 
-			pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+			//pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
 
 			log.info("Creating corpus from documents obtained...");
 			pipeline.setCorpus(corpus);
@@ -238,22 +237,22 @@ public class GateThread extends Thread implements StatusListener{
 
 			Factory.deleteResource(pipeline);
 
-		}catch(GateException | InterruptedException     e){
+		}catch(GateException /*| InterruptedException */    e){
 			log.error(e.getMessage());
-		}finally{
+		}/*finally{
 			//return worker to the pool
 			if(pipeline!=null)
 				pool.add(pipeline);
-		}
+		}*/
 	}
 
 	public void runProcessingResourcesforAll() {
-		SerialAnalyserController pipeline = null;
+		//SerialAnalyserController pipeline = null;
 		try{
 
-			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
+			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 
-			pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+			//pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
 
 			// create an instance of a JAPE Transducer processing resource
 			ArrayList<String> listJAPE = new ArrayList<String>();
@@ -287,13 +286,13 @@ public class GateThread extends Thread implements StatusListener{
 			Factory.deleteResource(pipeline);
 
 			log.info("done");
-		}catch(GateException | InterruptedException e){
+		}catch(GateException /*| InterruptedException*/ e){
 			log.error(e.getMessage());
-		} finally{
+		} /*finally{
 			//return worker to the pool
 			if(pipeline!=null)
 				pool.add(pipeline);
-		}
+		}*/
 	}
 
 	public Set<gate.Annotation> getSentence(){
@@ -357,8 +356,8 @@ public class GateThread extends Thread implements StatusListener{
 	}
 
 	public void cleanup(){
-		for(CorpusController c : pool) 
-			Factory.deleteResource(c);
+		/*for(CorpusController c : pool) 
+			Factory.deleteResource(c);*/
 
 
 		if(!corpus.isEmpty()){
@@ -371,9 +370,9 @@ public class GateThread extends Thread implements StatusListener{
 
 		}
 	}
-	public void destroy() {
+	/*public void destroy() {
 		log.trace("Destroyed");	
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);
-	}
+	}*/
 }
