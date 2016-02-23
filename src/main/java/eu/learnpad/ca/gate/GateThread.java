@@ -226,7 +226,7 @@ public class GateThread extends Thread implements StatusListener{
 
 			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 
-			 pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+			pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
 
 			log.info("Creating corpus from documents obtained...");
 			pipeline.setCorpus(corpus);
@@ -356,7 +356,23 @@ public class GateThread extends Thread implements StatusListener{
 
 	}
 
+	public void cleanup(){
+		for(CorpusController c : pool) 
+			Factory.deleteResource(c);
+
+
+		if(!corpus.isEmpty()){
+			for(int i=0;corpus.size()<i;i++){
+				Document doc1 = (Document)corpus.remove(i);
+				corpus.unloadDocument(doc1);
+				Factory.deleteResource(doc1);
+			}
+			Factory.deleteResource(corpus);
+
+		}
+	}
 	public void destroy() {
+		log.trace("Destroyed");	
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);
 	}

@@ -215,6 +215,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			if(analysisInterface.getStatus().equals("OK") ){
 				i++;
 			}
+			if(analysisInterface.getGate()!=null){
+				analysisInterface.getGate().cleanup();
+			}
 		}
 		Integer p = (i*100/size);
 		return p;
