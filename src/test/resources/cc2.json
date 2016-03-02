@@ -1,0 +1,17 @@
+{  
+   "language":"english",
+   "CollaborativeContent":{  
+      "id":1456311831770,
+      "Title":"Title of document",
+      "ContentPlain":"Hemingway App makes your writing bold and clear.The app highlights long, complex sentences and common errors; if you see a yellow sentence, shorten or split it. If you see a red highlight, your sentence is so dense and complicated that your readers will get lost trying to follow its meandering, splitting logic — try editing this sentence to remove the red.You can utilize a shorter word in place of a purple one. Mouse over it for hints.Adverbs are helpfully shown in blue. Get rid of them and pick verbs with force instead.Phrases in green have been marked to show passive voice.You can format your text with the toolbar.Paste in something you're working on and edit away. Or, click the Write button to compose something new.",
+      "ContentHTML":""
+   },
+   "QualityCriteria":{  
+      "simplicity":true,
+      "non_ambiguity":true,
+      "content_clarity":true,
+      "presentation_clarity":true,
+      "completeness":true,
+      "correctness":true
+   }
+}
