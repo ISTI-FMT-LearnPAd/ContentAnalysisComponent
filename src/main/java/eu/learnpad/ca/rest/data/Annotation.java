@@ -70,6 +70,9 @@ public  class Annotation implements Comparable<Object>{
 	}
 
 	public Node getNodeStart() {
+		if(NodeStart==null){
+			NodeStart = new Node();
+		}
 		return NodeStart;
 	}
 
