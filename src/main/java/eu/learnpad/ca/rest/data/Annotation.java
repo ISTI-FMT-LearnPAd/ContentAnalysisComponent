@@ -1,5 +1,7 @@
 package eu.learnpad.ca.rest.data;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,8 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public  class Annotation implements Comparable<Object>{
+public  class Annotation implements Comparable<Object> , Serializable{
 
+	/**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = -1802137579448233428L;
 	@XmlAttribute(name = "id", required = true)
 	protected Integer id;
 	@XmlAttribute(name = "type", required = true)

@@ -1,15 +1,23 @@
 package eu.learnpad.ca.rest.data;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class QualityCriteria {
+public class QualityCriteria implements Serializable{
 
-    @XmlAttribute(name = "simplicity")
+    /**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = 9213507601442298023L;
+	@XmlAttribute(name = "simplicity")
     protected Boolean simplicity;
     @XmlAttribute(name = "non_ambiguity")
     protected Boolean nonAmbiguity;

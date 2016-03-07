@@ -1,4 +1,5 @@
 package eu.learnpad.ca.rest.data.stat;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import eu.learnpad.ca.rest.data.Annotation;
@@ -32,8 +34,14 @@ import eu.learnpad.ca.rest.data.Annotation;
     "overallRecommendations"
 })
 @XmlRootElement(name = "annotatedStaticContentAnalysis")
-public class AnnotatedStaticContentAnalysis {
+public class AnnotatedStaticContentAnalysis implements Serializable{
 
+	/**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = 5505537512382474534L;
+	
 	@XmlElement(name = "StaticContent", required = true)
     protected StaticContent staticContent;
     @XmlElementWrapper(name = "Annotations", required = true)

@@ -1,4 +1,5 @@
 package eu.learnpad.ca.rest.data.collaborative;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,7 +36,16 @@ import eu.learnpad.ca.rest.data.Annotation;
     "overallRecommendations"
 })
 @XmlRootElement(name = "annotatedCollaborativeContentAnalysis")
-public class AnnotatedCollaborativeContentAnalysis {
+public class AnnotatedCollaborativeContentAnalysis implements Serializable {
+	
+	/**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = -4306190343830343967L;
+	
+	
+	
 	@JsonIgnore
 	@XmlElement(name = "CollaborativeContent", required = true)
     protected CollaborativeContent collaborativeContent;

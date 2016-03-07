@@ -1,13 +1,21 @@
 package eu.learnpad.ca.rest.data;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement(name = "Node")
-public class Node implements Comparable<Object>{
+public class Node implements Comparable<Object>, Serializable{
 	
+	/**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = 6395728827663779382L;
+
 	@XmlTransient
 	protected Integer OffSet=-1;
 

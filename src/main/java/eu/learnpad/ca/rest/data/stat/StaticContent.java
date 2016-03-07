@@ -1,18 +1,25 @@
 package eu.learnpad.ca.rest.data.stat;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-
+import javax.xml.bind.annotation.XmlTransient;
 
 import eu.learnpad.ca.rest.data.Content;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StaticContent {
+public class StaticContent  implements Serializable {
 
-    @XmlElement(name = "Title", required = true)
+    /**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = -8923971483136593366L;
+	@XmlElement(name = "Title", required = true)
     protected String title;
     @XmlElement(name = "Content", nillable= false)
     protected Content content;

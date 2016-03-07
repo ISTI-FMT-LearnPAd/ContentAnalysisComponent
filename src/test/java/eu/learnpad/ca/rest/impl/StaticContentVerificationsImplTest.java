@@ -35,7 +35,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 	@Override
     protected DeploymentContext configureDeployment() {
 		 forceSet(TestProperties.CONTAINER_PORT, "0");
-		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(StaticContentVerificationsImpl.class)))
+		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
 		                                   .addListener(GateServletContextListener.class)
 		                                   .build();
          
@@ -43,7 +43,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(StaticContentVerificationsImpl.class);
+		return new ResourceConfig(ColloborativeContentVerificationsImpl.class);
 	}
 
 	

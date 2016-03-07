@@ -1,14 +1,24 @@
 package eu.learnpad.ca.rest.data.collaborative;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import eu.learnpad.ca.rest.data.Content;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CollaborativeContent {
+public class CollaborativeContent implements Serializable {
+	
+	/**
+	 * 
+	 */
+	@XmlTransient
+	private static final long serialVersionUID = -4650309109473249692L;
+	
 
     @XmlElement(name = "Title", required = true)
     protected String title;
