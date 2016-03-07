@@ -18,6 +18,7 @@ import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.completeness.Completeness;
@@ -28,6 +29,7 @@ import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
+import eu.learnpad.ca.rest.dao.ContentDao;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
@@ -41,6 +43,9 @@ import eu.learnpad.exception.LpRestException;
 @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
+	
+	@Autowired
+	private ContentDao contenDao;
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
@@ -178,7 +183,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 
 
-
+				contenDao.save(ar);
 				return ar;
 			}else{
 				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
