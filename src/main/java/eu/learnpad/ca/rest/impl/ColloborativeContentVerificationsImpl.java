@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
@@ -61,7 +60,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			try{
 				System.out.println("Entering connection.init()");
 				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
-				TypedQuery<Integer> query2 = em.createNamedQuery("AnnotatedCollaborativeContentAnalyses.findAll",Integer.class);
+				//TypedQuery<Integer> query2 = em.createNamedQuery("AnnotatedCollaborativeContentAnalyses.findAll",Integer.class);
 				List<Integer> res = query.getResultList();
 				if(!res.isEmpty())
 					id =  res.get(res.size()-1);
