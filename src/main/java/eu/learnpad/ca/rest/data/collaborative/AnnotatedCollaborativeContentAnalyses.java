@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,6 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQuery(name="AnnotatedCollaborativeContentAnalyses.findAll", query="SELECT b.id FROM AnnotatedCollaborativeContentAnalyses b ORDER BY b.id")
 @XmlRootElement(name = "AnnotatedCollaborativeContentAnalyses")
 public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
