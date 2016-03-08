@@ -49,7 +49,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 
 	// Setup the entity manager
-	EntityManagerFactory factory =   Persistence.createEntityManagerFactory("example");
+	EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
 	EntityManager em = factory.createEntityManager();
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
