@@ -44,8 +44,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 
 	// Setup the entity manager
-	EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
-	EntityManager em = factory.createEntityManager();
+	private static EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
+	private static EntityManager em = factory.createEntityManager();
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
@@ -56,12 +56,12 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public ColloborativeContentVerificationsImpl(){
 		if(id<1){
 			try{
-				System.out.println("Entering ContactService.init()");
-				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID", Integer.class);
+				System.out.println("Entering connection.init()");
+				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
 				List<Integer> res = query.getResultList();
 				if(!res.isEmpty())
 					id =  res.get(res.size()-1);
-				System.out.println("Exiting ContactService.init()");
+				System.out.println("Exiting connection.init()");
 			}catch(Exception e){
 				log.fatal("db problem");
 				log.error(e);
