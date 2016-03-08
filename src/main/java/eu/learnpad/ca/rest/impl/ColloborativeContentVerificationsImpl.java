@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -54,6 +56,20 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
+	
+	public ColloborativeContentVerificationsImpl(){
+		try{
+			System.out.println("Entering ContactService.init()");
+			Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
+			List<Integer> res = query.getResultList();
+			if(!res.isEmpty())
+				id =  res.get(res.size()-1);
+			System.out.println("Exiting ContactService.init()");
+		}catch(Exception e){
+			log.fatal("db problem");
+			log.error(e);
+		}
+	}
 
 
 	@Path("/validatecollaborativecontent")
@@ -177,20 +193,21 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
+				
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 					if(annotatedCollaborativeContent!=null){
 						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
-						ar.setId(Integer.valueOf(contentID));
-						EntityTransaction trans = em.getTransaction();
-						trans.begin();
-						em.persist(ar);
-						trans.commit();
-						map.remove(Integer.valueOf(contentID));
+						
 					}
 				}
-
+				ar.setId(Integer.valueOf(contentID));
+				EntityTransaction trans = em.getTransaction();
+				trans.begin();
+				em.persist(ar);
+				trans.commit();
+				map.remove(Integer.valueOf(contentID));
 
 
 				return ar;
