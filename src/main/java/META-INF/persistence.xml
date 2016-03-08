@@ -5,10 +5,24 @@
       <class>eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:test.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:memory:test.db" />
         <property name="eclipselink.logging.level" value="ALL" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
         <property name="eclipselink.target-database" value="Auto"/> 
       </properties>
+    </persistence-unit>
+    <persistence-unit name="JEE6Demo-Persistence"
+        transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses</class>
+        <properties>
+            <property name="eclipselink.logging.level" value="FINE" />
+          <property name="eclipselink.target-database" value="DERBY" />
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:StudentsDB;create=true" />
+            <property name="javax.persistence.jdbc.user" value="" />
+            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="eclipselink.logging.level" value="INFO" />
+        </properties>
     </persistence-unit>
 </persistence>
