@@ -56,18 +56,20 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
-	
+
 	public ColloborativeContentVerificationsImpl(){
-		try{
-			System.out.println("Entering ContactService.init()");
-			Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
-			List<Integer> res = query.getResultList();
-			if(!res.isEmpty())
-				id =  res.get(res.size()-1);
-			System.out.println("Exiting ContactService.init()");
-		}catch(Exception e){
-			log.fatal("db problem");
-			log.error(e);
+		if(id<1){
+			try{
+				System.out.println("Entering ContactService.init()");
+				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
+				List<Integer> res = query.getResultList();
+				if(!res.isEmpty())
+					id =  res.get(res.size()-1);
+				System.out.println("Exiting ContactService.init()");
+			}catch(Exception e){
+				log.fatal("db problem");
+				log.error(e);
+			}
 		}
 	}
 
@@ -193,13 +195,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-				
+
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 					if(annotatedCollaborativeContent!=null){
 						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
-						
+
 					}
 				}
 				ar.setId(Integer.valueOf(contentID));
