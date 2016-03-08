@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -41,6 +45,10 @@ import eu.learnpad.exception.LpRestException;
 @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
+
+	// Setup the entity manager
+	EntityManagerFactory factory =   Persistence.createEntityManagerFactory("example");
+	EntityManager em = factory.createEntityManager();
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
@@ -174,6 +182,12 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					if(annotatedCollaborativeContent!=null){
 						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
+						ar.setId(Integer.valueOf(contentID));
+						EntityTransaction trans = em.getTransaction();
+						trans.begin();
+						em.persist(ar);
+						trans.commit();
+						map.remove(Integer.valueOf(contentID));
 					}
 				}
 
@@ -181,8 +195,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 				return ar;
 			}else{
-				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
-				return null;
+				AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, Integer.valueOf(contentID));
+				if(r!=null){
+					return r;
+				}else{
+					log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
+					return null;
+				}
 			}
 		}catch(Exception e){
 			log.fatal("Fatal "+e.getMessage());
@@ -225,7 +244,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		return p;
 
 	}
-	
+
 	private void clean(List<AbstractAnalysisClass> listanalysisInterface){
 		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 			if(analysisInterface.getGate()!=null){
@@ -257,7 +276,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 		}
 	}
-	
+
 	@Path("/validatestaticcontent")
 	@POST
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
@@ -395,6 +414,6 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
-	
+
 
 }

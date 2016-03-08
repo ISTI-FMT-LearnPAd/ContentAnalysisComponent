@@ -5,17 +5,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
+@Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "AnnotatedCollaborativeContentAnalyses")
 public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
+	@Id
+	@XmlTransient
+	private Integer id;
 	
 	/**
 	 * 
@@ -48,6 +53,30 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
     		AnnotatedCollaborativeContentAnalyses = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
     	}
         this.AnnotatedCollaborativeContentAnalyses.add(value);
+    }
+    
+    /**
+     * get the value of id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * set the value of id.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setId(Integer value) {
+        this.id = value;
     }
     
     
