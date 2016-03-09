@@ -5,7 +5,7 @@
       <class>eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:memory:/Users/isiu/test.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:/Users/isiu/test2.db" />
         <property name="eclipselink.logging.level" value="ALL" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
         <property name="eclipselink.target-database" value="Auto"/> 

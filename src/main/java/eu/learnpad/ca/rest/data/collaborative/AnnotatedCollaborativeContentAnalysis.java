@@ -3,6 +3,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import eu.learnpad.ca.rest.data.Annotation;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 
 /**
  * This class contains the data structure with all the informations returned by
@@ -26,7 +30,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 
 
 
-
+@Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "collaborativeContent",
@@ -52,13 +56,16 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
     @XmlElementWrapper(name = "Annotations", required = true)
     @XmlElement(name = "Annotation", required = true)
     protected List<Annotation> annotations;
+    @Transient
     @XmlElement(name = "OverallQuality", required = true)
     protected String overallQuality;
     @XmlElement(name = "OverallQualityMeasure", required = true)
     protected String overallQualityMeasure;
+    @Transient
     @XmlElement(name = "OverallRecommendations", required = true)
     protected String overallRecommendations;
     @XmlAttribute(name = "id", required = true)
+    @Transient
     protected Integer id;
     @XmlAttribute(name = "type", required = true)
     protected String type;
@@ -236,6 +243,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
      *     {@link String }
      *     
      */
+    @Column
     public String getType() {
         return type;
     }
@@ -252,6 +260,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
         this.type = value;
     }
 
+    @Transient
 	@Override
 	public String toString() {
 		return "ContentAnalysis [ type=" + type+ ", id=" + id 

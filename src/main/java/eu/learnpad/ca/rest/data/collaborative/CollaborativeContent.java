@@ -2,6 +2,9 @@ package eu.learnpad.ca.rest.data.collaborative;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -10,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import eu.learnpad.ca.rest.data.Content;
 
+@Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CollaborativeContent implements Serializable {
 	
@@ -19,15 +23,18 @@ public class CollaborativeContent implements Serializable {
 	@XmlTransient
 	private static final long serialVersionUID = -4650309109473249692L;
 	
-
+	
     @XmlElement(name = "Title", required = true)
     protected String title;
     @XmlElement(name = "Content", nillable= false)
     protected Content content;
+    @Transient
     @XmlElement(name = "ContentPlain",  nillable= false)
     protected String contentplain;
+    @Transient
     @XmlElement(name = "ContentHTML", nillable= false)
     protected String contenthtml;
+    @Column(name="Original_id")
     @XmlAttribute(name = "id")
     protected String id;
     

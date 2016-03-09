@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
@@ -25,10 +26,15 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	private Integer id;
 	
 	/**
-	 * 
+	 * @OneToMany(mappedBy="Analyses")
 	 */
+	
+	
 	@XmlTransient
 	private static final long serialVersionUID = 8605819018990855517L;
+	
+	
+	@ElementCollection
 	@XmlElement(required = true)
     protected List<AnnotatedCollaborativeContentAnalysis> AnnotatedCollaborativeContentAnalyses;
 
