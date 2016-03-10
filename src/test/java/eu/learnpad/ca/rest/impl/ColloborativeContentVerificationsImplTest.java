@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.inject.Singleton;
+import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -18,6 +20,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.glassfish.hk2.api.ActiveDescriptor;
+import org.glassfish.hk2.utilities.BuilderHelper;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.DeploymentContext;
@@ -27,6 +32,7 @@ import org.glassfish.jersey.test.TestProperties;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
+
 
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
@@ -48,7 +54,18 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	@Override
 	protected DeploymentContext configureDeployment() {
 		forceSet(TestProperties.CONTAINER_PORT, "0");
-		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
+		//new ResourceConfig(ColloborativeContentVerificationsImpl.class)
+		AbstractBinder binder = new AbstractBinder() {
+
+			@Override
+			protected void configure() {
+				bindFactory(PersistenceMemory.class).to(TokenPersistence.class).in(Singleton.class);
+				
+			}
+		};
+		ResourceConfig r = new ResourceConfig(ColloborativeContentVerificationsImpl.class);
+		r.register(binder);
+		return ServletDeploymentContext.forServlet(new ServletContainer(r))
 				.addListener(GateServletContextListener.class)
 				.build();
 
@@ -56,10 +73,23 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(ColloborativeContentVerificationsImpl.class);
+
+
+		AbstractBinder binder = new AbstractBinder() {
+
+			@Override
+			protected void configure() {
+					bindFactory(PersistenceMemory.class).to(TokenPersistence.class);//.in(Singleton.class);
+			
+
+			}
+		};
+		ResourceConfig r = new ResourceConfig(ColloborativeContentVerificationsImpl.class);
+		r.register(binder);
+		return r;
 	}
 
-	
+
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
@@ -68,11 +98,11 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXML_SUAP.xml");
-	
+
 	}
-	
-	
-	
+
+
+
 	public void checkCollaborativeContentAnalysis(String nameFilexml) throws JAXBException {
 
 		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream(nameFilexml);
@@ -104,11 +134,11 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
 			//ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
-			
+
 			AnnotatedCollaborativeContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
-			
+
 			//AnnotatedCollaborativeContentAnalyses res =  annotatecontent.readEntity(AnnotatedCollaborativeContentAnalyses.class);
-			
+
 			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res.getAnnotateCollaborativeContentAnalysis()) {
 				JAXBContext jaxbCtx;
 				try {

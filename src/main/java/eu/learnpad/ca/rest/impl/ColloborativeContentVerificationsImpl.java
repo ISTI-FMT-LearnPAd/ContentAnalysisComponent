@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 
 import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
@@ -39,24 +40,27 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
+
+
 @Path("/learnpad/ca/bridge")
 @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
+	@Inject 
+	 TokenPersistence em;
 
 	// Setup the entity manager
-	private static EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
-	private static EntityManager em = factory.createEntityManager();
+	/*private static EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
+	private static EntityManager em = factory.createEntityManager();*/
 	
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
-
-	@SuppressWarnings("unchecked")
-	public ColloborativeContentVerificationsImpl(){
-		if(id<1){
+	@PostConstruct
+	void init() {
+	    if(id<1){
 			try{
 				System.out.println("Entering connection.init()");
 				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
@@ -71,6 +75,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			}
 		}
 	}
+
 
 
 	@Path("/validatecollaborativecontent")
