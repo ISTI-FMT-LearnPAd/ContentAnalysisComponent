@@ -25,7 +25,7 @@ public  class Content  implements Serializable {
 	@XmlTransient
 	private static final long serialVersionUID = 9202035221734096506L;
 	
-	@Transient
+	/*@Transient*/
 	@XmlMixed
 	@XmlElementRef(type=Node.class, name="Node")
 	protected List<Object> Content;

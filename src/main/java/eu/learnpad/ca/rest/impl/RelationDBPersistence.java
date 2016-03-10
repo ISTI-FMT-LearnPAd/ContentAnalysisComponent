@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 
@@ -16,11 +17,7 @@ public class RelationDBPersistence implements TokenPersistence {
 	 private  EntityManagerFactory emFactory;
 	 
 	 private  EntityManager em;// = emFactory.createEntityManager();
-	 
-	 /*public RelationDBPersistence(){
-		 emFactory =   Persistence.createEntityManagerFactory("annotatedcca-test");
-		 em = emFactory.createEntityManager();
-	 }*/
+
 
 	 //ONLY FOR TEST PURPOSE
 	 public void setEntitymanagerFactory(EntityManagerFactory emf){
@@ -49,6 +46,12 @@ public class RelationDBPersistence implements TokenPersistence {
 			Class<AnnotatedCollaborativeContentAnalyses> class1, Integer valueOf) {
 	//	em = emFactory.createEntityManager();
 		return em.find(class1, valueOf);
+	}
+
+	@Override
+	public TypedQuery<Integer> createNamedQuery(String string,
+			Class<Integer> class1) {
+		return em.createNamedQuery(string,class1);
 	}
 
 }

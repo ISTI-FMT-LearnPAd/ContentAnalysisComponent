@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 
 import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
@@ -63,9 +60,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	    if(id<1){
 			try{
 				System.out.println("Entering connection.init()");
-				Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
-				//TypedQuery<Integer> query2 = em.createNamedQuery("AnnotatedCollaborativeContentAnalyses.findAll",Integer.class);
-				List<Integer> res = query.getResultList();
+				//Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
+				TypedQuery<Integer> query2 = em.createNamedQuery("ContentAnalyses.findAll",Integer.class);
+				List<Integer> res = query2.getResultList();
 				if(!res.isEmpty())
 					id =  res.get(res.size()-1);
 				System.out.println("Exiting connection.init()");

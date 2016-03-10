@@ -2,6 +2,7 @@ package eu.learnpad.ca.rest.impl;
 
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 
@@ -19,6 +20,8 @@ void persist(AnnotatedCollaborativeContentAnalyses ar);
 
 AnnotatedCollaborativeContentAnalyses find(
 		Class<AnnotatedCollaborativeContentAnalyses> class1, Integer valueOf);
+
+TypedQuery<Integer> createNamedQuery(String string, Class<Integer> class1);
 
 
 }

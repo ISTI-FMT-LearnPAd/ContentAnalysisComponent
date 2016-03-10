@@ -5,9 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,9 +17,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity
+@Entity(name="ContentAnalyses")
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQuery(name="AnnotatedCollaborativeContentAnalyses.findAll", query="SELECT b.id FROM AnnotatedCollaborativeContentAnalyses b ORDER BY b.id")
+@NamedQuery(name="ContentAnalyses.findAll", query="SELECT b.id FROM ContentAnalyses b ORDER BY b.id")
 @XmlRootElement(name = "AnnotatedCollaborativeContentAnalyses")
 public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
@@ -35,6 +37,10 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
 	
 	@ElementCollection
+	 @CollectionTable(
+		        name="ASContentAnalysis"/*,
+		        joinColumns=@JoinColumn(name="OWNER_ID")*/
+		  )
 	@XmlElement(required = true)
     protected List<AnnotatedCollaborativeContentAnalysis> AnnotatedCollaborativeContentAnalyses;
 
