@@ -35,8 +35,18 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	@XmlTransient
 	private static final long serialVersionUID = 8605819018990855517L;
 	
-
+	@XmlTransient
+	private String ip;
 	
+	public String getIp() {
+		return ip;
+	}
+
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 	@ElementCollection
 	 @CollectionTable(
 		        name="ASContentAnalysis"/*,

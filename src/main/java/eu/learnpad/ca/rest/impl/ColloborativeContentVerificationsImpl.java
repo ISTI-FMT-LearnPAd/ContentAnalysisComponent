@@ -10,12 +10,14 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.languagetool.Language;
@@ -35,7 +37,6 @@ import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.exception.LpRestException;
 
 
 
@@ -78,8 +79,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@Path("/validatecollaborativecontent")
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
-			throws LpRestException{
+	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile){
 		try{
 			if(contentFile!=null){
 				String content = contentFile.getCollaborativeContent().getContentplain();
@@ -189,11 +189,12 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}")
 	@GET
-	public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
-			throws LpRestException{
+	public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID, @Context HttpServletRequest request){
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
+				String ip = request.getRemoteAddr();
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
+				ar.setIp(ip);
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
 
@@ -231,8 +232,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}/status")
 	@GET
-	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
-			throws LpRestException{
+	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID){
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
@@ -279,8 +279,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/allid")
 	@GET
-	public String  getStatusCollaborativeContentVerifications()
-			throws LpRestException{
+	public String  getStatusCollaborativeContentVerifications(){
 		String result = new String();
 		try{
 			if(!map.isEmpty()){
