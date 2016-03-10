@@ -35,13 +35,14 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	@XmlTransient
 	private static final long serialVersionUID = 8605819018990855517L;
 	
+
 	
 	@ElementCollection
 	 @CollectionTable(
 		        name="ASContentAnalysis"/*,
 		        joinColumns=@JoinColumn(name="OWNER_ID")*/
 		  )
-	@XmlElement(required = true)
+	@XmlElement(required = true, name="AnnotatedCollaborativeContentAnalysis")
     protected List<AnnotatedCollaborativeContentAnalysis> AnnotatedCollaborativeContentAnalyses;
 
 	
