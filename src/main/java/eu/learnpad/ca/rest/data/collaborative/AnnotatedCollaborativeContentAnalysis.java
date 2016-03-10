@@ -56,7 +56,6 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
     @XmlElementWrapper(name = "Annotations", required = true)
     @XmlElement(name = "Annotation", required = true)
     protected List<Annotation> annotations;
-    @Transient
     @XmlElement(name = "OverallQuality", required = true)
     protected String overallQuality;
     @XmlElement(name = "OverallQualityMeasure", required = true)

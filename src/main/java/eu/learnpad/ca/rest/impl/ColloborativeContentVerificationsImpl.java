@@ -244,6 +244,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				else
 					return "InProgress_"+progress+"%";
 			}
+			AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, Integer.valueOf(contentID));
+			if(r!=null){
+				return "OK";
+			}
 			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 			return "ERROR";
 		}catch(Exception e){
