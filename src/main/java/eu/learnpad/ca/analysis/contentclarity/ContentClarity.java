@@ -142,7 +142,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 		addNodeInContent(listnode,c,docContent);
 		
 		numDefectiveSentences = listSentenceDefected.size();
-		Factory.deleteResource(gateu.getCorpus());
+		//Factory.deleteResource(gateu.getCorpus());
 		return listSentence.size();
 	}
 
