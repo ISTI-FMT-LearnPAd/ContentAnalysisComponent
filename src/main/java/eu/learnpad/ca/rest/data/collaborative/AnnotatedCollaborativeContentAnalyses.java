@@ -24,7 +24,7 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
 	@Id
 	@XmlTransient
-	private Integer id;
+	private String id;
 	
 	/**
 	 * @OneToMany(mappedBy="Analyses")
@@ -87,7 +87,7 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
      *     {@link Integer }
      *     
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -99,7 +99,7 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
      *     {@link Integer }
      *     
      */
-    public void setId(Integer value) {
+    public void setId(String value) {
         this.id = value;
     }
     

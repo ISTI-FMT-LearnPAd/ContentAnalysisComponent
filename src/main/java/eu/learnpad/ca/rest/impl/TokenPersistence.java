@@ -19,9 +19,9 @@ EntityTransaction getTransaction();
 void persist(AnnotatedCollaborativeContentAnalyses ar);
 
 AnnotatedCollaborativeContentAnalyses find(
-		Class<AnnotatedCollaborativeContentAnalyses> class1, Integer valueOf);
+		Class<AnnotatedCollaborativeContentAnalyses> class1, String value);
 
-TypedQuery<Integer> createNamedQuery(String string, Class<Integer> class1);
+TypedQuery<String> createNamedQuery(String string, Class<String> class1);
 
 
 }

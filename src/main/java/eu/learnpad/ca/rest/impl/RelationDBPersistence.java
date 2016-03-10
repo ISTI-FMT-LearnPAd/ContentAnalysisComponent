@@ -51,14 +51,14 @@ public class RelationDBPersistence implements TokenPersistence {
 
 	@Override
 	public AnnotatedCollaborativeContentAnalyses find(
-			Class<AnnotatedCollaborativeContentAnalyses> class1, Integer valueOf) {
+			Class<AnnotatedCollaborativeContentAnalyses> class1, String value) {
 	//	em = emFactory.createEntityManager();
-		return em.find(class1, valueOf);
+		return em.find(class1, value);
 	}
 
 	@Override
-	public TypedQuery<Integer> createNamedQuery(String string,
-			Class<Integer> class1) {
+	public TypedQuery<String> createNamedQuery(String string,
+			Class<String> class1) {
 		return em.createNamedQuery(string,class1);
 	}
 

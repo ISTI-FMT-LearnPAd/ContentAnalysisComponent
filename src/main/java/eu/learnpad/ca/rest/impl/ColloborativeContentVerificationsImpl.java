@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -52,27 +51,27 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	private static EntityManager em = factory.createEntityManager();*/
 	
 
-	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
-	private static Integer id =0;
+	private static Map<String,List<AbstractAnalysisClass>> map = new HashMap<String,List<AbstractAnalysisClass>>();
+	private UUID id = UUID.randomUUID();
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
-	@PostConstruct
+	/*@PostConstruct
 	void init() {
 	    if(id<1){
 			try{
 				System.out.println("Entering connection.init()");
 				//Query query = em.createNativeQuery("select ID FROM ANNOTATEDCOLLABORATIVECONTENTANALYSES order by ID");
-				TypedQuery<Integer> query2 = em.createNamedQuery("ContentAnalyses.findAll",Integer.class);
-				List<Integer> res = query2.getResultList();
+				TypedQuery<String> query2 = em.createNamedQuery("ContentAnalyses.findAll",String.class);
+				List<String> res = query2.getResultList();
 				if(!res.isEmpty())
-					id =  res.get(res.size()-1);
+					id =  Integer.valueOf(res.get(res.size()-1));
 				System.out.println("Exiting connection.init()");
 			}catch(Exception e){
 				log.fatal("db problem");
 				log.error(e);
 			}
 		}
-	}
+	}*/
 
 
 
@@ -86,7 +85,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				if(content!=null && content.length()>0){
 					GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 					gateu.start();
-					id++;
+					
 					Language lang = null;
 					if(contentFile.getLanguage().toLowerCase().equals("english")){
 						lang = new  BritishEnglish();
@@ -176,47 +175,47 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
-	private void putAndCreate(int id, AbstractAnalysisClass ai){
-		if(!map.containsKey(id)){
+	private void putAndCreate(UUID id, AbstractAnalysisClass ai){
+		if(!map.containsKey(id.toString())){
 			List<AbstractAnalysisClass> lai = new ArrayList<AbstractAnalysisClass>();
 			lai.add(ai);
-			map.put(id, lai);
+			map.put(id.toString(), lai);
 		}else{
-			List<AbstractAnalysisClass> lai = map.get(id);
+			List<AbstractAnalysisClass> lai = map.get(id.toString());
 			lai.add(ai);
 		}
 	}
 
-	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
 	@GET
 	public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID, @Context HttpServletRequest request){
 		try{
-			if(map.containsKey(Integer.valueOf(contentID))){
+			if(map.containsKey(contentID)){
 				String ip = request.getRemoteAddr();
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				ar.setIp(ip);
-				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
+				List<AbstractAnalysisClass> listanalysisInterface = map.get(contentID);
 
 
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 					if(annotatedCollaborativeContent!=null){
-						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+						annotatedCollaborativeContent.setId(contentID);
 						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
 
 					}
 				}
-				ar.setId(Integer.valueOf(contentID));
+				ar.setId(contentID);
 				EntityTransaction trans = em.getTransaction();
 				trans.begin();
 				em.persist(ar);
 				trans.commit();
-				map.remove(Integer.valueOf(contentID));
+				map.remove(contentID);
 
 
 				return ar;
 			}else{
-				AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, Integer.valueOf(contentID));
+				AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, contentID);
 				if(r!=null){
 					return r;
 				}else{
@@ -230,12 +229,12 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
-	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}/status")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
 	@GET
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID){
 		try{
-			if(map.containsKey(Integer.valueOf(contentID))){
-				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+			if(map.containsKey(contentID)){
+				List<AbstractAnalysisClass> listanalysisInterface  = map.get(contentID);
 				Integer progress = getProgress(listanalysisInterface);
 				if(progress>99){
 					clean(listanalysisInterface);
@@ -244,7 +243,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				else
 					return "InProgress_"+progress+"%";
 			}
-			AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, Integer.valueOf(contentID));
+			AnnotatedCollaborativeContentAnalyses	r = 	em.find(AnnotatedCollaborativeContentAnalyses.class, contentID);
 			if(r!=null){
 				return "OK";
 			}
@@ -283,7 +282,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		String result = new String();
 		try{
 			if(!map.isEmpty()){
-				for(Integer key :map.keySet()){
+				for(String key :map.keySet()){
 					result+=key.toString()+";";
 				}
 

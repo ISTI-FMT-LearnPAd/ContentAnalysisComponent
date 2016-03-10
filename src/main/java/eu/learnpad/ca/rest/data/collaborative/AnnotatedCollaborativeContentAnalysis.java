@@ -65,7 +65,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
     protected String overallRecommendations;
     @XmlAttribute(name = "id", required = true)
     @Transient
-    protected Integer id;
+    protected String id;
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
@@ -75,7 +75,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
 
     
     
-    public AnnotatedCollaborativeContentAnalysis(Integer id, String type) {
+    public AnnotatedCollaborativeContentAnalysis(String id, String type) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -218,7 +218,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
      *     {@link Integer }
      *     
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -230,7 +230,7 @@ public class AnnotatedCollaborativeContentAnalysis implements Serializable {
      *     {@link Integer }
      *     
      */
-    public void setId(Integer value) {
+    public void setId(String value) {
         this.id = value;
     }
 
