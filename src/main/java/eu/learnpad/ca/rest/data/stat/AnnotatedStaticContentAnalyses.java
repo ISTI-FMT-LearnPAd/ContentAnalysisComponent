@@ -22,7 +22,7 @@ public class AnnotatedStaticContentAnalyses implements Serializable{
 	@XmlTransient
 	private static final long serialVersionUID = 5877789919764838231L;
 	
-	@XmlElement(required = true)
+	@XmlElement(required = true, name="AnnotatedStaticContentAnalysis")
     protected List<AnnotatedStaticContentAnalysis> AnnotatedStaticContentAnalyses;
 
 	

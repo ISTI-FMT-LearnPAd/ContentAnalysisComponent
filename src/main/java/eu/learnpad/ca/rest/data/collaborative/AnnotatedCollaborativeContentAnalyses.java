@@ -17,12 +17,14 @@ import javax.xml.bind.annotation.XmlTransient;
 public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	
 	
+
 	/**
 	 * 
 	 */
 	@XmlTransient
 	private static final long serialVersionUID = 8605819018990855517L;
-	@XmlElement(required = true)
+	@XmlElement(required = true, name="AnnotatedCollaborativeContentAnalysis")
+
     protected List<AnnotatedCollaborativeContentAnalysis> AnnotatedCollaborativeContentAnalyses;
 
 	
