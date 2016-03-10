@@ -242,13 +242,13 @@ public class Completeness  extends AbstractAnalysisClass {
 		return in.replace(":", "");
 	}
 
-	private int getTotNumberTerms(Elements elements) {
+	/*private int getTotNumberTerms(Elements elements) {
 		String stringelements = ""; //$NON-NLS-1$
 		for (Element element : elements) {
 			stringelements +=element.text();
 		}
 		return stringelements.split(" ").length; //$NON-NLS-1$
-	}
+	}*/
 
 
 

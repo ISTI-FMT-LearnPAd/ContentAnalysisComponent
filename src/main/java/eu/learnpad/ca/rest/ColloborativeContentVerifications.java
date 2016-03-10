@@ -22,8 +22,6 @@ package eu.learnpad.ca.rest;
 
 
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -33,7 +31,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
-import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
 //@Consumes(MediaType.APPLICATION_XML)
