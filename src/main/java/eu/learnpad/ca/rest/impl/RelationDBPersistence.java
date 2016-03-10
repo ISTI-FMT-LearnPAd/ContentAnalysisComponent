@@ -22,35 +22,38 @@ public class RelationDBPersistence implements TokenPersistence {
 	 //ONLY FOR TEST PURPOSE
 	 public void setEntitymanagerFactory(EntityManagerFactory emf){
 		 this.emFactory = emf;
-		 em = emFactory.createEntityManager();
+		 //em = emFactory.createEntityManager();
 	 }
 	
 	@Override
 	public Query createNativeQuery(String string) {
-		//em = emFactory.createEntityManager();
+		em = emFactory.createEntityManager();
 		return em.createNamedQuery(string);
 	}
 
 	@Override
 	public EntityTransaction getTransaction() {
+		em = emFactory.createEntityManager();
 		return em.getTransaction();
 	}
 
 	@Override
 	public void persist(AnnotatedCollaborativeContentAnalyses ar) {
+		em = emFactory.createEntityManager();
 		em.persist(ar);
 	}
 
 	@Override
 	public AnnotatedCollaborativeContentAnalyses find(
 			Class<AnnotatedCollaborativeContentAnalyses> class1, Integer valueOf) {
-	//	em = emFactory.createEntityManager();
+		em = emFactory.createEntityManager();
 		return em.find(class1, valueOf);
 	}
 
 	@Override
 	public TypedQuery<Integer> createNamedQuery(String string,
 			Class<Integer> class1) {
+		em = emFactory.createEntityManager();
 		return em.createNamedQuery(string,class1);
 	}
 
