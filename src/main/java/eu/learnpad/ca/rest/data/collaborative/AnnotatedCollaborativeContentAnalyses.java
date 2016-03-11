@@ -40,8 +40,21 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	@XmlTransient
 	private String date;
 	
+	@XmlTransient
+	private String typeofinputdocument;
 	
 	
+	
+	public String getTypeofinputdocument() {
+		return typeofinputdocument;
+	}
+
+
+	public void setTypeofinputdocument(String typeofinputdocument) {
+		this.typeofinputdocument = typeofinputdocument;
+	}
+
+
 	public String getDate() {
 		return date;
 	}

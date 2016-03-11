@@ -57,6 +57,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	private static Map<String,List<AbstractAnalysisClass>> map = new HashMap<String,List<AbstractAnalysisClass>>();
 	private UUID id = UUID.randomUUID();
+	private static String type_input_doc;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
 	/*@PostConstruct
@@ -89,7 +90,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				if(content!=null && content.length()>0){
 					GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 					gateu.start();
-
+					
+					type_input_doc = contentFile.getTypeofdoc();
 					Language lang = null;
 					if(contentFile.getLanguage().toLowerCase().equals("english")){
 						lang = new  BritishEnglish();
@@ -203,6 +205,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					   ipAddress = request.getRemoteAddr();  
 				   }
 				ar.setDate(GetUTCdatetimeAsString());
+				ar.setTypeofinputdocument(type_input_doc);
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(contentID);
 
 

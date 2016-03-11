@@ -18,6 +18,7 @@ import eu.learnpad.ca.rest.data.QualityCriteria;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
 		"language",
+		"typeofdoc",
     "collaborativeContent",
     "qualityCriteria"
 })
@@ -32,12 +33,26 @@ public class CollaborativeContentAnalysis implements Serializable{
 	
 	@XmlAttribute(name = "language", required = true)
 	protected String language;
+	@XmlAttribute(name = "type_of_doc")
+	protected String typeofdoc;
     @XmlElement(name = "CollaborativeContent", required = true)
     protected CollaborativeContent collaborativeContent;
     @XmlElement(name = "QualityCriteria", required = true)
     protected QualityCriteria qualityCriteria;
+    
+    
+    
+    
 
-    /**
+    public String getTypeofdoc() {
+		return typeofdoc;
+	}
+
+	public void setTypeofdoc(String typeofdoc) {
+		this.typeofdoc = typeofdoc;
+	}
+
+	/**
      * Get the value of language.
      * 
      * @return
