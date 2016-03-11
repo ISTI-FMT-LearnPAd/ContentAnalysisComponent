@@ -4,11 +4,15 @@
       <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
       <class>eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses</class>
       <properties>
-        <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:" />
-        <property name="eclipselink.logging.level" value="WARNING" />
+        <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+		<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;TRACE_LEVEL_FILE=2;MV_STORE=FALSE" /><!-- jdbc:sqlite::memory: -->
+        <property name="eclipselink.logging.level" value="ALL" />
+        <property name="javax.persistence.jdbc.user" value="" />
+   	    <property name="javax.persistence.jdbc.password" value="" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
-        <property name="eclipselink.target-database" value="Auto"/> 
+        <property name="eclipselink.ddl-generation.output-mode" value="database" />
+      <!--    <property name="javax.persistence.sql-load-script-source" value="scriptsql.sql"/>
+        <property name="eclipselink.target-database" value="Auto"/> -->
       </properties>
     </persistence-unit>
 </persistence>
