@@ -1,10 +1,13 @@
 package eu.learnpad.ca.rest.impl;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -44,12 +47,12 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 	@Inject 
-	 TokenPersistence em;
+	TokenPersistence em;
 
 	// Setup the entity manager
 	/*private static EntityManagerFactory factory =   Persistence.createEntityManagerFactory("annotatedcca");
 	private static EntityManager em = factory.createEntityManager();*/
-	
+
 
 	private static Map<String,List<AbstractAnalysisClass>> map = new HashMap<String,List<AbstractAnalysisClass>>();
 	private UUID id = UUID.randomUUID();
@@ -85,7 +88,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				if(content!=null && content.length()>0){
 					GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 					gateu.start();
-					
+
 					Language lang = null;
 					if(contentFile.getLanguage().toLowerCase().equals("english")){
 						lang = new  BritishEnglish();
@@ -194,6 +197,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				String ip = request.getRemoteAddr();
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				ar.setIp(ip);
+				ar.setDate(GetUTCdatetimeAsString());
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(contentID);
 
 
@@ -297,6 +301,16 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			return "FATAL ERROR";
 
 		}
-	}
 
+
+	}
+	public static String GetUTCdatetimeAsString()
+	{
+		String DATEFORMAT = "dd-MM-yyyy HH:mm:ss";
+		final SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+		final String utcTime = sdf.format(new Date());
+
+		return utcTime;
+	}
 }

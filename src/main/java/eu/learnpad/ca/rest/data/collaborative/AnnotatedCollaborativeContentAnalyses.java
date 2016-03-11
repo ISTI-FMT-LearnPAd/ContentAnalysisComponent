@@ -37,6 +37,21 @@ public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	@XmlTransient
 	private String ip;
 	
+	@XmlTransient
+	private String date;
+	
+	
+	
+	public String getDate() {
+		return date;
+	}
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
 	public String getIp() {
 		return ip;
 	}
