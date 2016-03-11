@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -197,6 +198,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				String ip = request.getRemoteAddr();
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				ar.setIp(ip);
+				String ipAddress = request.getHeader("X-FORWARDED-FOR");  
+				   if (ipAddress == null) {  
+					   ipAddress = request.getRemoteAddr();  
+				   }
 				ar.setDate(GetUTCdatetimeAsString());
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(contentID);
 
@@ -292,6 +297,15 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 				return result;
 
+			}else{
+				TypedQuery<String>	r = 	em.createNamedQuery("ContentAnalyses.findAll", String.class);
+				List<String> res = r.getResultList();
+				if(res!=null){
+					for(String key:res){
+						result+=key+";";
+					}
+					return result;
+				}
 			}
 			log.error("Element not found");
 			return "ERROR";
