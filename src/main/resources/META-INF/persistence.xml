@@ -5,7 +5,7 @@
       <class>eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses</class>
       <properties>
           <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-		<property name="javax.persistence.jdbc.url" value="jdbc:h2:./target/h2-5;TRACE_LEVEL_FILE=2;MV_STORE=FALSE" /><!-- jdbc:sqlite::memory: -->
+		<property name="javax.persistence.jdbc.url" value="jdbc:h2:./target/h2-5;TRACE_LEVEL_FILE=1;MV_STORE=FALSE" /><!-- jdbc:sqlite::memory: -->
         <property name="eclipselink.logging.level" value="WARNING" />
         <property name="javax.persistence.jdbc.user" value="" />
    	    <property name="javax.persistence.jdbc.password" value="" />
