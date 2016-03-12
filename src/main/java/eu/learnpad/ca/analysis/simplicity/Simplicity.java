@@ -21,9 +21,7 @@ import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
 import gate.DocumentContent;
 import gate.Factory;
 
@@ -41,12 +39,12 @@ public class Simplicity extends AbstractAnalysisClass {
 		this.gateu = gate;
 	}
 
-	public Simplicity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
+	/*public Simplicity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
 		this.gateu = gate;
-	}
+	}*/
 
 	public void run() {
 		lStartTime = System.currentTimeMillis();
@@ -55,9 +53,9 @@ public class Simplicity extends AbstractAnalysisClass {
 			check(collaborativeContentInput);
 		}
 
-		if (staticContentInput != null) {
+		/*if (staticContentInput != null) {
 			check(staticContentInput);
-		}
+		}*/
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
@@ -156,7 +154,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		return 0 ;
 	}
 
-	private void check(StaticContentAnalysis staticContentInput2) {
+	/*private void check(StaticContentAnalysis staticContentInput2) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String content = staticContentInput.getStaticContent().getContentplain();
@@ -179,7 +177,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedStaticContent.setType("Simplicity");
 
-	}
+	}*/
 
 
 	/*private List<Node> extractNode(List<Annotation> listannotation){

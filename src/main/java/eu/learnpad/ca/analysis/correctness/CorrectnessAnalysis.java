@@ -17,9 +17,7 @@ import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
 
 
 public class CorrectnessAnalysis extends  AbstractAnalysisClass{
@@ -104,7 +102,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 	}
 
-	public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
+	/*public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String content = staticContentInput.getStaticContent().getContentplain();
@@ -174,7 +172,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		}
 
 
-	}
+	}*/
 
 
 
@@ -279,11 +277,11 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		this.collaborativeContentInput =collaborativeContentInput;
 	}
 
-	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
+	/*public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
 
 		this.language=lang;
 		this.staticContentInput =staticContentInput;
-	}
+	}*/
 
 
 
@@ -297,9 +295,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			annotatedCollaborativeContent = this.check(collaborativeContentInput);	
 		}
 
-		if(staticContentInput!=null){
+		/*if(staticContentInput!=null){
 			annotatedStaticContent = this.check(staticContentInput);	
-		}
+		}*/
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 

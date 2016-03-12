@@ -18,11 +18,9 @@ import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
 import gate.DocumentContent;
-import gate.Factory;
+
 
 public class ContentClarity extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
@@ -36,12 +34,12 @@ public class ContentClarity extends AbstractAnalysisClass {
 		this.gateu = gate;
 	}
 
-	public ContentClarity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
+	/*public ContentClarity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
 		this.gateu = gate;
-	}
+	}*/
 
 	public void run() {
 		 lStartTime = System.currentTimeMillis();
@@ -50,9 +48,9 @@ public class ContentClarity extends AbstractAnalysisClass {
 			check(collaborativeContentInput);
 		}
 
-		if (staticContentInput != null) {
+		/*if (staticContentInput != null) {
 			check(staticContentInput);
-		}
+		}*/
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
@@ -62,7 +60,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 	}
 
 	
-	private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
+	/*private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String content = staticContentInput.getStaticContent().getContentplain();
@@ -89,7 +87,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 
 		return annotatedStaticContent;
 		
-	}
+	}*/
 
 	public AnnotatedCollaborativeContentAnalysis check(
 			CollaborativeContentAnalysis collaborativeContentInput) {

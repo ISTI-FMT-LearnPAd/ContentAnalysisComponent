@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity(name="ContentAnalyses")
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQuery(name="ContentAnalyses.findAll", query="SELECT b.id FROM ContentAnalyses b")
+@NamedQuery(name="ContentAnalyses.findAll", query="SELECT b.id FROM ContentAnalyses b order by b.date")
 @XmlRootElement(name = "AnnotatedCollaborativeContentAnalyses")
 public class AnnotatedCollaborativeContentAnalyses implements Serializable{
 	

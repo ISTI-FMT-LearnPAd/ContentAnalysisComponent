@@ -12,8 +12,8 @@ import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+//import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+//import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 
@@ -21,12 +21,12 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AbstractAnalysisClass.class);
 	protected AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
-	protected AnnotatedStaticContentAnalysis annotatedStaticContent;
+	//protected AnnotatedStaticContentAnalysis annotatedStaticContent;
 
 	protected Language language;
 	protected Integer numDefectiveSentences = 0;
 	protected CollaborativeContentAnalysis collaborativeContentInput;
-	protected StaticContentAnalysis staticContentInput;
+//	protected StaticContentAnalysis staticContentInput;
 	protected GateThread gateu = null;
 
 	public String getStatus(){
@@ -88,9 +88,9 @@ public abstract class AbstractAnalysisClass extends Thread{
 		return annotatedCollaborativeContent;
 	}
 
-	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
+	/*public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
 		return annotatedStaticContent;
-	} 
+	} */
 
 	protected void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
 		Collections.sort(listnode);

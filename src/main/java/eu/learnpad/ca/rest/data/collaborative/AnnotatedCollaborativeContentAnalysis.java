@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import eu.learnpad.ca.rest.data.Annotation;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 
 /**
  * This class contains the data structure with all the informations returned by

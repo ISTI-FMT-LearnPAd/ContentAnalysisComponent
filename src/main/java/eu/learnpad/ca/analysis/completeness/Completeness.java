@@ -17,9 +17,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
 
 public class Completeness  extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Completeness.class);
@@ -53,12 +51,12 @@ public class Completeness  extends AbstractAnalysisClass {
 
 	}
 
-	public Completeness(StaticContentAnalysis staticContentInput, Language lang) {
+	/*public Completeness(StaticContentAnalysis staticContentInput, Language lang) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
 
-	}
+	}*/
 
 	public void run() {
 		lStartTime = System.currentTimeMillis();
@@ -67,9 +65,9 @@ public class Completeness  extends AbstractAnalysisClass {
 			check(collaborativeContentInput);
 		}
 
-		if (staticContentInput != null) {
+		/*if (staticContentInput != null) {
 			check(staticContentInput);
-		}
+		}*/
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
@@ -79,7 +77,7 @@ public class Completeness  extends AbstractAnalysisClass {
 	}
 
 
-	private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
+	/*private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String contenthtml = staticContentInput.getStaticContent().getContenthtml();
@@ -105,7 +103,7 @@ public class Completeness  extends AbstractAnalysisClass {
 
 		return annotatedStaticContent;
 
-	}
+	}*/
 
 	protected double calculateOverallQualityMeasure(Integer NumberFields){
 		double qm = (NumberFields.doubleValue()/18)*100;

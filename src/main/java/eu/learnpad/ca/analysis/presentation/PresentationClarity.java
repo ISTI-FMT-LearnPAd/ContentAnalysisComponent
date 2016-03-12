@@ -17,9 +17,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
 
 public class PresentationClarity extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PresentationClarity.class);
@@ -33,12 +31,12 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 	}
 
-	public PresentationClarity(StaticContentAnalysis staticContentInput, Language lang) {
+	/*public PresentationClarity(StaticContentAnalysis staticContentInput, Language lang) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
 
-	}
+	}*/
 
 	public void run() {
 		lStartTime = System.currentTimeMillis();
@@ -47,9 +45,9 @@ public class PresentationClarity extends AbstractAnalysisClass {
 			check(collaborativeContentInput);
 		}
 
-		if (staticContentInput != null) {
+		/*if (staticContentInput != null) {
 			check(staticContentInput);
-		}
+		}*/
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
@@ -59,7 +57,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 	}
 
 
-	private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
+	/*private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String contenthtml = staticContentInput.getStaticContent().getContenthtml();
@@ -85,7 +83,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 		return annotatedStaticContent;
 
-	}
+	}*/
 	protected double calculateOverallQualityMeasure(Integer numdef){
 		double qm = (1-(numdef.doubleValue()/7))*100;
 		double qualityMeasure = Math.abs(qm);
