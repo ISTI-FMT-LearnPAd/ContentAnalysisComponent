@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -90,7 +91,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				if(content!=null && content.length()>0){
 					GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 					gateu.start();
-					
+
 					type_input_doc = contentFile.getTypeofdoc();
 					Language lang = null;
 					if(contentFile.getLanguage().toLowerCase().equals("english")){
@@ -116,19 +117,6 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					}
 					if(contentFile.getQualityCriteria().isSimplicity()){
 
-						/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
-					threadsimply.start();
-					putAndCreate(id, threadsimply);
-
-					DifficultJargon threadDF = new DifficultJargon (contentFile, lang);
-					threadDF.start();
-					putAndCreate(id, threadDF);
-
-
-
-					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
-					threadEL.start();
-					putAndCreate(id, threadEL);*/
 						Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
 						threadEL.start();
 						putAndCreate(id, threadEL);
@@ -201,9 +189,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				ar.setIp(ip);
 				String ipAddress = request.getHeader("X-FORWARDED-FOR");  
-				   if (ipAddress == null) {  
-					   ipAddress = request.getRemoteAddr();  
-				   }
+				if (ipAddress == null) {  
+					ipAddress = request.getRemoteAddr();  
+				}
 				ar.setDate(GetUTCdatetimeAsString());
 				ar.setTypeofinputdocument(type_input_doc);
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(contentID);
@@ -290,32 +278,28 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/allid")
 	@GET
-	public String  getStatusCollaborativeContentVerifications(){
-		String result = new String();
+	public List<String>  getStatusCollaborativeContentVerifications(){
+		//String result = new String();
+		ArrayList<String> b = new ArrayList<String>();
 		try{
 			if(!map.isEmpty()){
-				for(String key :map.keySet()){
-					result+=key.toString()+";";
-				}
 
-				return result;
+				b.addAll(map.keySet());
 
-			}else{
-				TypedQuery<String>	r = 	em.createNamedQuery("ContentAnalyses.findAll", String.class);
-				List<String> res = r.getResultList();
-				if(res!=null){
-					for(String key:res){
-						result+=key+";";
-					}
-					return result;
-				}
+
 			}
-			log.error("Element not found");
-			return "ERROR";
+			TypedQuery<String>	r = 	em.createNamedQuery("ContentAnalyses.findAll", String.class);
+			List<String> res = r.getResultList();
+			if(res!=null){
+				res.addAll(b);
+				return res;
+			}
+
+			return b;
 		}catch(Exception e){
 			log.fatal("Fatal "+e.getMessage());
 
-			return "FATAL ERROR";
+			return null;//"FATAL ERROR";
 
 		}
 

@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.inject.Singleton;
 import javax.ws.rs.client.Entity;
@@ -127,6 +128,11 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		}
 		assertTrue(!status.equals("ERROR"));
 		if(!status.equals("ERROR")){
+			
+			Response all =  target("/learnpad/ca/bridge/allid").request().get();
+
+			List<String> g  = all.readEntity(new GenericType<List<String>>() {});
+			
 			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
 			//ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
