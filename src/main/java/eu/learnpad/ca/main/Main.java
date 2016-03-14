@@ -41,8 +41,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		HttpServer server = null;
 		try{
-			final Weld weld = new Weld();
-            weld.initialize();
+			/*final Weld weld = new Weld();
+            weld.initialize();*/
 			server = startServer();
 
 			WebappContext webappContext = new WebappContext("lp-content-analysis");
