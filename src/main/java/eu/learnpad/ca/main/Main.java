@@ -7,6 +7,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.jboss.weld.environment.se.Weld;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.impl.ColloborativeContentVerificationsImpl;
@@ -40,6 +41,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		HttpServer server = null;
 		try{
+			final Weld weld = new Weld();
+            weld.initialize();
 			server = startServer();
 
 			WebappContext webappContext = new WebappContext("lp-content-analysis");
