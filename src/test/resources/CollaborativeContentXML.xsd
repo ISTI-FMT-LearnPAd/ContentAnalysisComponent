@@ -26,7 +26,7 @@
 				</element>
 			</sequence>
 			<attribute type="string" name="language" use="required" />
-			<attribute type="string" name="type_of_doc" />
+			<attribute type="string" name="type_of_doc" use="required"  />
 		</complexType>
 	</element>
 </schema>
