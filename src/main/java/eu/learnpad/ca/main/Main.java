@@ -7,9 +7,10 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-/*import org.jboss.weld.environment.se.Weld;*/
+import org.jboss.weld.environment.se.Weld;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
+import eu.learnpad.ca.rest.api.web.security.ResponseCorsFilter;
 import eu.learnpad.ca.rest.impl.ColloborativeContentVerificationsImpl;
 
 
@@ -27,7 +28,7 @@ public class Main {
 		// create a resource config that scans for JAX-RS resources and providers
 
 		final ResourceConfig rc = new ResourceConfig(ColloborativeContentVerificationsImpl.class);
-
+		rc.register(ResponseCorsFilter.class);
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc,false);
@@ -41,8 +42,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		HttpServer server = null;
 		try{
-			/*final Weld weld = new Weld();
-            weld.initialize();*/
+			final Weld weld = new Weld();
+            weld.initialize();
 			server = startServer();
 
 			WebappContext webappContext = new WebappContext("lp-content-analysis");
