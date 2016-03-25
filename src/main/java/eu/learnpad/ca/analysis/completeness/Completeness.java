@@ -25,8 +25,8 @@ public class Completeness  extends AbstractAnalysisClass {
 
 	private long lStartTime;
 	private List<String> Elements_Template = Arrays.asList("Headline",
-			"Source Documents",
-			/*"Reference Documents",*/
+			/*"Source Documents",
+			"Reference Documents",*/
 			"Glossary",
 			"Context",
 			/*"Summary", */
@@ -106,7 +106,7 @@ public class Completeness  extends AbstractAnalysisClass {
 	}*/
 
 	protected double calculateOverallQualityMeasure(Integer NumberFields){
-		double qm = (NumberFields.doubleValue()/18)*100;
+		double qm = (NumberFields.doubleValue()/Elements_Template.size())*100;
 		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
