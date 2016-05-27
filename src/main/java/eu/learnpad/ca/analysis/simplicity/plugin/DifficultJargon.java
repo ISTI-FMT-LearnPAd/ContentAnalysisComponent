@@ -141,6 +141,8 @@ public class DifficultJargon extends Plugin {
 				a.setId(nodeid);
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
+				a.setStartSentence_Offset(offset);
+				a.setEndSentence_Offset(offset+sentence.length());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
 				a.setType("Difficult Jargon"); //$NON-NLS-1$
