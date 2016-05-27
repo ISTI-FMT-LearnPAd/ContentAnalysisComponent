@@ -132,7 +132,8 @@ public abstract class Plugin {
 			}
 
 			a.setRecommendation(recc);
-
+			a.setStartSentence_Offset(gatenodestart.getOffset().intValue());
+			a.setEndSentence_Offset(gatenodeend.getOffset().intValue());
 			annotations.add(a);
 
 		}
