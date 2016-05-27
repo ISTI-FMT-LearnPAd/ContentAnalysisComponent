@@ -98,7 +98,26 @@ public abstract class Plugin {
 			a.setStartNode(init.getId());
 			a.setNodeEnd(end);
 			a.setNodeStart(init);
-			
+			if(sentencedef.size()==1){
+				gate.Annotation simplesentence = sentencedef.iterator().next();
+				a.setStartSentence_Offset(simplesentence.getStartNode().getOffset().intValue());
+				a.setEndSentence_Offset(simplesentence.getEndNode().getOffset().intValue());
+			}else{
+				if(sentencedef.size()>1){
+					int g=0;
+					for (gate.Annotation msentence : sentencedef) {
+						if(g==0){
+							a.setStartSentence_Offset(msentence.getStartNode().getOffset().intValue());
+							
+						}
+						g++;
+						if(g==sentencedef.size()){
+							a.setEndSentence_Offset(msentence.getEndNode().getOffset().intValue());
+						}
+						
+					}
+				}
+			}
 			a.setType(Type);
 			String recc = null;
 			try{
@@ -116,8 +135,8 @@ public abstract class Plugin {
 				else
 					recc = String.format(Racc, sentence_gate, sentence_gate);
 				
-				a.setStartSentence_Offset(gatenodestart.getOffset().intValue());
-				a.setEndSentence_Offset(gatenodestart.getOffset().intValue()+sentence_gate.length());
+				//a.setStartSentence_Offset(gatenodestart.getOffset().intValue());
+				//a.setEndSentence_Offset(gatenodeend.getOffset().intValue());
 			}catch(InvalidOffsetException e){
 				log.error(e);
 			}
