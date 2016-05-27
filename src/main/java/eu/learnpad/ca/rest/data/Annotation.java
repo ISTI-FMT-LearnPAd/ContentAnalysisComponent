@@ -37,7 +37,10 @@ public  class Annotation implements Comparable<Object> , Serializable{
 	@XmlAttribute(name = "EndNode_Offset", required = true)
 	protected Integer endNode_Offset;
 	
-	
+	@XmlAttribute(name = "StartSentence_Offset", required = true)
+	protected Integer startSentence_Offset;
+	@XmlAttribute(name = "EndSentence_Offset", required = true)
+	protected Integer endSentence_Offset;
 	
 	@XmlTransient
 	protected Node NodeStart;
@@ -57,7 +60,21 @@ public  class Annotation implements Comparable<Object> , Serializable{
 		this.recommendation=recom;
 	}
 	
-	
+	public Integer getStartSentence_Offset() {
+        return startSentence_Offset;
+    }
+
+    public void setStarSenttence_Offset(Integer startSentence_Offset) {
+        this.startSentence_Offset = startSentence_Offset;
+    }
+
+    public Integer getEndSentence_Offset() {
+        return endSentence_Offset;
+    }
+
+    public void setEndSentence_Offset(Integer endSentence_Offset) {
+        this.endSentence_Offset = endSentence_Offset;
+    }
 	
 	
 	public Integer getstartNode_Offset() {
