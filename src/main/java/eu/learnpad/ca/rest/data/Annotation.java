@@ -64,7 +64,7 @@ public  class Annotation implements Comparable<Object> , Serializable{
         return startSentence_Offset;
     }
 
-    public void setStarSenttence_Offset(Integer startSentence_Offset) {
+    public void setStartSentence_Offset(int startSentence_Offset) {
         this.startSentence_Offset = startSentence_Offset;
     }
 
@@ -72,7 +72,7 @@ public  class Annotation implements Comparable<Object> , Serializable{
         return endSentence_Offset;
     }
 
-    public void setEndSentence_Offset(Integer endSentence_Offset) {
+    public void setEndSentence_Offset(int endSentence_Offset) {
         this.endSentence_Offset = endSentence_Offset;
     }
 	
