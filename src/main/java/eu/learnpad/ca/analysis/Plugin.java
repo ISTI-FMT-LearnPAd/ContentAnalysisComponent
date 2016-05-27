@@ -7,6 +7,7 @@ import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -97,7 +98,18 @@ public abstract class Plugin {
 			a.setStartNode(init.getId());
 			a.setNodeEnd(end);
 			a.setNodeStart(init);
-
+			if(sentencedef.size()==1){
+				gate.Annotation simplesentence = sentencedef.iterator().next();
+				a.setStartSentence_Offset(simplesentence.getStartNode().getOffset().intValue());
+				a.setEndSentence_Offset(simplesentence.getEndNode().getOffset().intValue());
+			}else{
+				if(sentencedef.size()>1){
+					gate.Annotation msentence_start = sentencedef.iterator().next();
+					a.setStartSentence_Offset(msentence_start.getStartNode().getOffset().intValue());
+					gate.Annotation msentence_end = sentencedef.iterator().next();
+					a.setEndSentence_Offset(msentence_end.getEndNode().getOffset().intValue());
+				}
+			}
 			a.setType(Type);
 			String recc = null;
 			try{
