@@ -6,11 +6,15 @@ import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.languagetool.Language;
 import org.apache.log4j.Logger;
@@ -190,8 +194,8 @@ public abstract class Plugin {
 			}
 
 		}
-
-		return sent;
+		TreeSet<gate.Annotation> tset = new TreeSet<gate.Annotation>(sent);
+		return tset;
 	}
 
 }
