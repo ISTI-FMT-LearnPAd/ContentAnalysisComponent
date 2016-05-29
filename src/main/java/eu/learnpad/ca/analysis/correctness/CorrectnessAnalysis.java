@@ -226,6 +226,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				c.setContent(end);
 				Annotation a = new Annotation();
 				a.setId(id);
+				a.setStartSentence_Offset(offset);
+				a.setEndSentence_Offset(offset+sentence.length());
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
@@ -242,6 +244,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				a.setId(id);
 				a.setEndNode(prev.getNodeEnd().getId());
 				a.setStartNode(prev.getNodeStart().getId());
+                                a.setStartSentence_Offset(offset);
+                                a.setEndSentence_Offset(offset+sentence.length());
 				a.setNodeEnd(prev.getNodeEnd());
 				a.setNodeStart(prev.getNodeStart());
 				a.setType("Correctness"); //$NON-NLS-1$
