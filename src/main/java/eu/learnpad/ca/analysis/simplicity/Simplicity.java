@@ -120,10 +120,10 @@ public class Simplicity extends AbstractAnalysisClass {
 			//JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
 			//listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
 			Juridical jj = new Juridical(language, docContent,listnode);
-			jj.checkJuridicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			jj.checkJuridicalJargon(gateu, listannotations, listSentenceDefected, listSentence);
 			
 			TechnicalJargon tj = new TechnicalJargon(language, docContent,listnode);
-			tj.checkTechnicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			tj.checkTechnicalJargon(gateu, listannotations, listSentenceDefected, listSentence);
 			
 			
 			
