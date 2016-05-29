@@ -151,7 +151,7 @@ public abstract class Plugin {
 
 	public Set<gate.Annotation> getSentenceFromNode(Set<gate.Annotation> listSentence,gate.Node gatenodestart, gate.Node gatenodeend){
 		Set<gate.Annotation> sent = new HashSet<gate.Annotation>();
-		gate.Annotation sentenceorec = null;
+		//gate.Annotation sentenceorec = null;
 		for(gate.Annotation sentence : listSentence){
 			gate.Node startSentence = sentence.getStartNode();
 			gate.Node endSentence = sentence.getEndNode();
@@ -170,20 +170,20 @@ public abstract class Plugin {
 			boolean end = endSentence.getOffset()-gatenodeend.getOffset()>=-1;
 			if(initial & end){
 				sent.add(sentence);
-				sentenceorec = null;
+				//sentenceorec = null;
 				break;
 			}else{
 				if(initial){
 					if(gatenodestart.getOffset()<=endSentence.getOffset()){
-						sentenceorec=sentence;
+						sent.add(sentence);
 					}
 				}else{
-					if(end & sentenceorec!=null){
+					if(end /*& sentenceorec!=null*/){
 						if(gatenodeend.getOffset()>=startSentence.getOffset()){
-							sent.add(sentenceorec);
+							//sent.add(sentenceorec);
 							sent.add(sentence);
-							sentenceorec = null;
-							break;
+							//sentenceorec = null;
+							//break;
 						}
 					}
 				}
